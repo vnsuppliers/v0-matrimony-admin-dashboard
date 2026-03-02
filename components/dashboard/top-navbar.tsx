@@ -86,7 +86,7 @@ export function TopNavbar({ onMobileMenuToggle }: TopNavbarProps) {
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="end" className="w-80 p-0">
+          <PopoverContent align="end" className="w-80 overflow-hidden p-0">
             <div className="flex items-center justify-between border-b px-4 py-3">
               <h4 className="text-sm font-semibold text-foreground">Notifications</h4>
               {unreadCount > 0 && (
@@ -95,7 +95,7 @@ export function TopNavbar({ onMobileMenuToggle }: TopNavbarProps) {
                 </Button>
               )}
             </div>
-            <ScrollArea className="max-h-80">
+            <div className="max-h-80 overflow-y-auto">
               {notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-8 text-muted-foreground">
                   <Bell className="mb-2 size-8 opacity-30" />
@@ -129,7 +129,7 @@ export function TopNavbar({ onMobileMenuToggle }: TopNavbarProps) {
                   ))}
                 </div>
               )}
-            </ScrollArea>
+            </div>
           </PopoverContent>
         </Popover>
 

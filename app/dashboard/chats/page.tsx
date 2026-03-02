@@ -17,8 +17,6 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { ChatConversation, ChatMessage } from "@/types"
 
@@ -82,7 +80,7 @@ export default function ChatsPage() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3" style={{ height: "calc(100vh - 260px)" }}>
         {/* Conversation List */}
-        <Card className="flex flex-col overflow-hidden border-none shadow-sm lg:col-span-1">
+        <Card className="flex min-h-0 flex-col overflow-hidden border-none shadow-sm lg:col-span-1">
           <CardHeader className="shrink-0 border-b px-4 py-3">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -94,7 +92,7 @@ export default function ChatsPage() {
               />
             </div>
           </CardHeader>
-          <ScrollArea className="flex-1">
+          <div className="min-h-0 flex-1 overflow-y-auto">
             <div className="flex flex-col">
               {loading
                 ? Array.from({ length: 6 }).map((_, i) => (
@@ -154,11 +152,11 @@ export default function ChatsPage() {
                 </div>
               )}
             </div>
-          </ScrollArea>
+          </div>
         </Card>
 
         {/* Chat Messages Panel */}
-        <Card className="flex flex-col overflow-hidden border-none shadow-sm lg:col-span-2">
+        <Card className="flex min-h-0 flex-col overflow-hidden border-none shadow-sm lg:col-span-2">
           {selectedChat ? (
             <>
               <CardHeader className="shrink-0 border-b px-4 py-3">
@@ -195,7 +193,7 @@ export default function ChatsPage() {
                   </div>
                 </div>
               </CardHeader>
-              <ScrollArea className="flex-1 p-4">
+              <div className="min-h-0 flex-1 overflow-y-auto p-4">
                 {loadingMessages ? (
                   <div className="flex flex-col gap-3">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -247,7 +245,7 @@ export default function ChatsPage() {
                     })}
                   </div>
                 )}
-              </ScrollArea>
+              </div>
             </>
           ) : (
             <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
