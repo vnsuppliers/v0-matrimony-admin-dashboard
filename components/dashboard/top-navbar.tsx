@@ -15,14 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
-
 interface TopNavbarProps {
-  sidebarCollapsed: boolean
   onMobileMenuToggle: () => void
 }
 
-export function TopNavbar({ sidebarCollapsed, onMobileMenuToggle }: TopNavbarProps) {
+export function TopNavbar({ onMobileMenuToggle }: TopNavbarProps) {
   const { user, logout } = useAuthStore()
   const { theme, setTheme } = useTheme()
   const router = useRouter()
@@ -34,10 +31,7 @@ export function TopNavbar({ sidebarCollapsed, onMobileMenuToggle }: TopNavbarPro
 
   return (
     <header
-      className={cn(
-        "sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-card/80 px-4 backdrop-blur-md transition-all duration-300 md:px-6",
-        sidebarCollapsed ? "md:pl-[84px]" : "md:pl-[272px]"
-      )}
+      className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-card/80 px-4 backdrop-blur-md md:px-6"
     >
       <div className="flex items-center gap-3">
         <Button
