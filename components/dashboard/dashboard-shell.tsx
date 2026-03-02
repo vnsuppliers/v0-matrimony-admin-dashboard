@@ -5,10 +5,12 @@ import { cn } from "@/lib/utils"
 import { AppSidebar } from "./app-sidebar"
 import { TopNavbar } from "./top-navbar"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { Heart } from "lucide-react"
+import { Heart, LogOut } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { LayoutDashboard, Users, Flag, CreditCard, MessageCircle } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
+import { LayoutDashboard, Users, Flag, CreditCard, MessageCircle, Settings } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useAuthStore } from "@/lib/store/auth-store"
 
 const mobileNav = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -16,12 +18,20 @@ const mobileNav = [
   { label: "Reports", href: "/dashboard/reports", icon: Flag },
   { label: "Subscriptions", href: "/dashboard/subscriptions", icon: CreditCard },
   { label: "Chat Monitor", href: "/dashboard/chats", icon: MessageCircle },
+  { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ]
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+  const { logout } = useAuthStore()
+
+  const handleLogout = () => {
+    logout()
+    router.push("/login")
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -32,7 +42,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile Sidebar */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="w-72 p-0">
+        <SheetContent side="left" className="flex w-72 flex-col p-0">
           <div className="flex h-16 items-center gap-3 border-b px-4">
             <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10">
               <Heart className="size-5 text-primary" />
@@ -67,6 +77,17 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               )
             })}
           </nav>
+          <div className="mt-auto border-t p-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="w-full justify-start gap-3 text-destructive hover:bg-destructive/10 hover:text-destructive"
+            >
+              <LogOut className="size-4" />
+              <span className="text-xs">Log out</span>
+            </Button>
+          </div>
         </SheetContent>
       </Sheet>
 
